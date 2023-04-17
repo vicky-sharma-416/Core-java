@@ -32,6 +32,7 @@ public class Product extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         salesBtn = new javax.swing.JMenu();
         saleBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -67,6 +68,14 @@ public class Product extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem8.setText("Customer Update");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+
         jMenuBar1.add(jMenu1);
 
         salesBtn.setText("Sales Form");
@@ -89,6 +98,11 @@ public class Product extends javax.swing.JFrame {
         jMenu2.setText("Purchase Form");
 
         jMenuItem3.setText("Purchase");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -189,6 +203,16 @@ public class Product extends javax.swing.JFrame {
         PurchaseSalesReport.main(strAr2);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        this.setVisible(false);
+        Purchase.main(new String [2]);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        this.setVisible(false);
+        CustomerUpdate.main(new String [2]);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,6 +260,7 @@ public class Product extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem saleBtn;
     private javax.swing.JMenu salesBtn;
     // End of variables declaration//GEN-END:variables

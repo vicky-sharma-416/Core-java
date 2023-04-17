@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.HashMap;
 
 public class Purchase extends javax.swing.JFrame{
 
@@ -17,6 +18,7 @@ public class Purchase extends javax.swing.JFrame{
     Vector v2 = null;
     Vector v3 = null;
     Vector v4 = null;
+    HashMap stockQtyMaping = null;
     int invoiceNo = 100;
 
     public Purchase() throws SQLException {
@@ -32,15 +34,23 @@ public class Purchase extends javax.swing.JFrame{
             v2 = new Vector();
             v3 = new Vector();
             v4 = new Vector();
+            stockQtyMaping = new HashMap();
 
             conn = InitConnection.getConn();
             Statement stm = conn.createStatement();
     
             qty.setText("Quantity");
             totalAmount.setText("Total Amount");
-            
+
             customers.removeAllItems();
             products.removeAllItems();
+
+            try (ResultSet stockResult = stm.executeQuery("SELECT * FROM stock")) {
+                while(stockResult.next()){
+                    stockQtyMaping.put(stockResult.getInt(3), stockResult.getInt(2));
+
+                }
+            }
 
             try (ResultSet purchaseResult = stm.executeQuery("SELECT invoice_no FROM purchase")) {
                 while(purchaseResult.next()){
@@ -68,11 +78,21 @@ public class Purchase extends javax.swing.JFrame{
             }
 
             System.out.println(" -- invoiceNo :- " + invoiceNo);
+
             invoiceNo1.setText(invoiceNo + "");
+            this.setStockMapping();
         } catch(Exception error) {
             System.out.println(" -- getData Catch error :- " + error);
         } finally {
             conn.close();
+        }
+    }
+    
+    private void setStockMapping(){
+        if(!stockQtyMaping.isEmpty() && !v3.isEmpty() && stockQtyMaping.containsKey(v3.get(products.getSelectedIndex()))){
+            stock.setText(stockQtyMaping.get(v3.get(products.getSelectedIndex())).toString());
+        } else {
+            stock.setText("Stock");
         }
     }
 
@@ -98,6 +118,7 @@ public class Purchase extends javax.swing.JFrame{
         stock = new javax.swing.JTextField();
         qty = new javax.swing.JTextField();
         updateLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -202,7 +223,11 @@ public class Purchase extends javax.swing.JFrame{
         getContentPane().add(qty);
         qty.setBounds(10, 180, 140, 40);
         getContentPane().add(updateLabel);
-        updateLabel.setBounds(180, 130, 150, 70);
+        updateLabel.setBounds(180, 190, 150, 30);
+
+        jLabel3.setText("Available Stock");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(210, 130, 110, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -222,6 +247,8 @@ public class Purchase extends javax.swing.JFrame{
         if(!v4.isEmpty()) {
             purchasePrice.setText(v4.get(products.getSelectedIndex()).toString());
         }
+
+        this.setStockMapping();
     }//GEN-LAST:event_productsActionPerformed
 
     private void customersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customersActionPerformed
@@ -269,6 +296,26 @@ public class Purchase extends javax.swing.JFrame{
             
             int x = preparedStm.executeUpdate();
             updateLabel.setText(x + " Data is updated.");
+
+            if(!stockQtyMaping.isEmpty() && !v3.isEmpty() && stockQtyMaping.containsKey(v3.get(products.getSelectedIndex()))){            
+                PreparedStatement stockUpdate = conn.prepareStatement("UPDATE stock SET product_id=?, qty=? WHERE product_id=?");
+
+                int stockValue = Integer.parseInt(stockQtyMaping.get(v3.get(products.getSelectedIndex())).toString());
+
+                stockUpdate.setInt(1, Integer.parseInt(v3.get(products.getSelectedIndex()).toString()));
+                stockUpdate.setInt(2, (Integer.parseInt(qty.getText())) + stockValue );
+                stockUpdate.setInt(3, Integer.parseInt(v3.get(products.getSelectedIndex()).toString()));
+                stockUpdate.executeUpdate();
+
+                System.out.println("-- Stock details updated successfully.");
+            } else {
+                PreparedStatement stockInsert = conn.prepareStatement("INSERT INTO stock (product_id, qty) VALUES (?, ?)");
+                stockInsert.setInt(1, Integer.parseInt(v3.get(products.getSelectedIndex()).toString()));
+                stockInsert.setInt(2, Integer.parseInt(qty.getText()));
+                stockInsert.executeUpdate();
+
+                System.out.println("-- Stock details inserted successfully.");
+            }
 
             this.getData();
         } catch (ClassNotFoundException ex) {
@@ -328,6 +375,7 @@ public class Purchase extends javax.swing.JFrame{
     private javax.swing.JTextField invoiceNo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JComboBox<String> products;
     private javax.swing.JTextField purchasePrice;
     private javax.swing.JTextField qty;
