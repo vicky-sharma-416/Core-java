@@ -43,12 +43,30 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/LENOVO/.m2/repository/org/springframework/spring-context/6.0.10/spring-context-6.0.10.jar" sourcepath="C:/Users/LENOVO/.m2/repository/org/springframework/spring-context/6.0.10/spring-context-6.0.10-sources.jar">
+	<classpathentry kind="lib" path="C:/Users/LENOVO/.m2/repository/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar" sourcepath="C:/Users/LENOVO/.m2/repository/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2-sources.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="org.springframework"/>
-			<attribute name="maven.artifactId" value="spring-context"/>
-			<attribute name="maven.version" value="6.0.10"/>
+			<attribute name="maven.groupId" value="javax.persistence"/>
+			<attribute name="maven.artifactId" value="javax.persistence-api"/>
+			<attribute name="maven.version" value="2.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/LENOVO/.m2/repository/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar" sourcepath="C:/Users/LENOVO/.m2/repository/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.apache.logging.log4j"/>
+			<attribute name="maven.artifactId" value="log4j-core"/>
+			<attribute name="maven.version" value="2.17.1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/LENOVO/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="antlr"/>
+			<attribute name="maven.artifactId" value="antlr"/>
+			<attribute name="maven.version" value="2.7.7"/>
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
