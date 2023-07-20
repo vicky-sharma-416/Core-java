@@ -3,6 +3,9 @@ package com.csvReader.dao;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.hibernate.Criteria;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -41,7 +44,8 @@ public class ReadCsvDao {
 			boolean isDataAvailable = readDto.insert(employeeList);
 			
 			if(isDataAvailable) {
-				System.out.println("Success");
+				System.out.println(" ====> Success");
+				readDto.criteriaData();
 			} else {
 				System.out.println("Fail");
 			}
